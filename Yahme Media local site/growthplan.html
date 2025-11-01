@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Free 7-Day Growth Plan | Yahme Media</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // init EmailJS with your Public Key
+      emailjs.init("UQdfYPcg5qWP81Lhh");
+    });
+
+    function handleGrowthLeadSubmit(e) {
+      e.preventDefault();
+
+      // Collect values
+      const brand = document.getElementById("gp_brand").value.trim();
+      const emailAddr = document.getElementById("gp_email").value.trim();
+      const phoneNum = document.getElementById("gp_phone").value.trim();
+
+      // timestamp for template
+      const now = new Date();
+      const timestamp = now.toLocaleString();
+
+      // What gets sent to you
+      const messageSummary = `
+New Growth Plan Opt-In
+
+Brand / URL: ${brand || "N/A"}
+Email: ${emailAddr}
+Phone / WhatsApp: ${phoneNum || "N/A"}
+
+Requested the 7-Day Growth Plan.
+Submitted at: ${timestamp}
+      `;
+
+      const templateParams = {
+        name: brand || "(no brand given)",
+        time: timestamp,
+        message: messageSummary
+      };
+
+      // Send via EmailJS (to you)
+      emailjs
+        .send("service_1m1mcgz", "template_2whkrhc", templateParams)
+        .then(() => {
+          // show success + download link
+          const box = document.getElementById("download-box");
+          box.style.display = "block";
+
+          // OPTIONAL: auto-start download in browser
+          // window.open("assets/yahme-growth-plan.pdf", "_blank");
+
+          // reset form
+          document.getElementById("growthplan-form").reset();
+        })
+        .catch((err) => {
+          console.error("EmailJS error:", err);
+          // still show box so they can grab PDF
+          const box = document.getElementById("download-box");
+          box.style.display = "block";
+        });
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h1,h2,h3,h4 {
+      color: #f2f2f2;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+    }
+
+    p,li,label,small {
+      color: #c9c9c9;
+    }
+
+    /* GLOBAL grain overlay */
+    .grain-overlay {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 0);
+      background-size: 3px 3px;
+      opacity: 0.07;
+      mix-blend-mode: screen;
+      z-index: 9999;
+    }
+
+    /* STICKY HEADER / NAV (reuse main site style) */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.15);
+    }
+
+    .header-inner {
+      width: 100%;
+      max-width: 1300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #cfcfcf;
+    }
+
+    .nav-links-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #cfcfcf;
+      padding: 0.4rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 16px rgba(157,107,255,0.4);
+      background: rgba(157,107,255,0.12);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      color: #fff;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 6px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.2);
+      padding: 0.5rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: "Roboto Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    .brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #9d6bff;
+      box-shadow: 0 0 8px rgba(157,107,255,0.9);
+    }
+
+    .nav-cta {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #fff;
+      background: rgba(157,107,255,0.15);
+      border: 1px solid rgba(157,107,255,0.6);
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      min-width: 140px;
+      text-align: center;
+      box-shadow: 0 0 16px rgba(157,107,255,0.4);
+      transition: all 0.15s ease;
+    }
+
+    .nav-cta:hover {
+      background: rgba(157,107,255,0.25);
+      box-shadow: 0 0 20px rgba(157,107,255,0.55);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* offset for fixed header */
+    .offset-top {
+      padding-top: 64px;
+    }
+
+    /* HERO / TOP CONTENT FOR THIS PAGE */
+    .gp-hero {
+      position: relative;
+      background: #000;
+      padding: 4rem 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    .gp-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .gp-bg-blob {
+      position: absolute;
+      left: -15%;
+      top: 5%;
+      width: 60vw;
+      height: 60vh;
+      background: radial-gradient(
+        circle at 30% 30%,
+        rgba(157,107,255,0.22) 0%,
+        rgba(0,0,0,0) 70%
+      );
+      filter: blur(120px) brightness(1.4);
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: floatBlob 20s ease-in-out infinite;
+    }
+
+    @keyframes floatBlob {
+      0%   { transform: translate3d(0%,0%,0) scale(1); }
+      50%  { transform: translate3d(4%,-4%,0) scale(1.06); }
+      100% { transform: translate3d(0%,0%,0) scale(1); }
+    }
+
+    .label-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.65rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #f2f2f2;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .label-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #9d6bff;
+      box-shadow: 0 0 8px rgba(157,107,255,0.9);
+    }
+
+    .gp-title {
+      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
+      line-height: 1.25;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: #f2f2f2;
+      max-width: 700px;
+    }
+
+    .gp-sub {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      font-weight: 400;
+      color: #c9c9c9;
+      max-width: 700px;
+    }
+
+    .gp-sub strong {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    /* FORM AREA */
+    .gp-form-wrap {
+      background: #000;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .gp-form-inner {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+      z-index: 5;
+
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .gp-form-inner {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    .form-card {
+      position: relative;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.9),
+        0 0 60px rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+
+      padding: 1.25rem 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-headline {
+      font-size: 1rem;
+      line-height: 1.3;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .form-intro {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #c9c9c9;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #fff;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    small {
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      font-family: inherit;
+      padding: 0.75rem 0.75rem;
+      outline: none;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.07);
+      transition: all 0.15s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 16px rgba(157,107,255,0.4),
+                  0 30px 80px rgba(0,0,0,0.95);
+    }
+
+    textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      min-width: 220px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .submit-btn:hover {
+      background: rgba(157,107,255,0.15);
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 20px rgba(157,107,255,0.4);
+    }
+
+    .download-box {
+      display: none;
+      background: rgba(157,107,255,0.07);
+      border: 1px solid rgba(157,107,255,0.5);
+      border-radius: 8px;
+      padding: 1rem;
+      color: #c9c9c9;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .side-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.9),
+        0 0 60px rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 1rem;
+      position: relative;
+    }
+
+    .side-headline {
+      font-size: 0.9rem;
+      line-height: 1.3;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .side-copy {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #c9c9c9;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .side-copy-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #bdbdbd;
+    }
+
+    .side-copy-list li::before {
+      content: "– ";
+      color: #9d6bff;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      width: 100%;
+      background: #000;
+      padding: 3rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .final-headline {
+      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
+      line-height: 1.25;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: #f2f2f2;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .final-sub {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #c9c9c9;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .final-btn {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      min-width: 220px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .final-btn:hover {
+      background: rgba(157,107,255,0.15);
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 20px rgba(157,107,255,0.4);
+    }
+
+    .final-footnote {
+      font-size: 0.7rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* FOOTER */
+    .footer-legal {
+      width: 100%;
+      background: #000;
+      padding: 3rem 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 800px) {
+      .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    .footer-brand h4 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #c9c9c9;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: #7f7f7f;
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      padding-left: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: #9d6bff;
+      text-shadow: 0 0 8px rgba(157,107,255,0.6);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 1rem;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: #6a6aa;
+    }
+
+    /* tilt-card hover aesthetic */
+    .tilt-card {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      will-change: transform;
+    }
+    .tilt-card:hover {
+      box-shadow:
+        0 0 25px rgba(157,107,255,0.4),
+        0 40px 120px rgba(0,0,0,0.95) !important;
+      border-color: rgba(157,107,255,0.6) !important;
+    }
+    .tilt-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 10% 10%,
+        rgba(255,255,255,0.18) 0%,
+        rgba(0,0,0,0) 70%
+      );
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      border-radius: inherit;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .tilt-card:hover::after {
+      opacity: 0.25;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- grain overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+
+        <div class="nav-links-group">
+          <a class="nav-link" href="index.html#top">Home</a>
+          <a class="nav-link" href="index.html#phase1">Services</a>
+          <a class="nav-link" href="index.html#phase2">Growth Package</a>
+          <a class="nav-link" href="index.html#about">About</a>
+          <a class="nav-link" href="index.html#faq">FAQ</a>
+        </div>
+
+        <div class="nav-links-group">
+          <a class="nav-link" href="audit.html">Free Strategy Call</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </div>
+
+      </nav>
+
+      <div class="nav-right">
+        <div class="brand-mark">
+          <span class="brand-dot"></span>
+          <span>Yahme&nbsp;Media</span>
+        </div>
+
+        <a class="nav-cta" href="audit.html">
+          Book Free Call
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main class="offset-top">
+
+    <!-- HERO / HEADER BLOCK -->
+    <section class="gp-hero">
+      <div class="gp-bg-blob"></div>
+
+      <div class="gp-inner">
+        <div class="label-tag">
+          <span class="label-dot"></span>
+          <span>Free 7-Day Growth Plan</span>
+        </div>
+
+        <div class="gp-title">
+          Get the exact 7-day traffic & conversion play we use to un-stick fashion brands.
+        </div>
+
+        <div class="gp-sub">
+          You’ll get:
+          <br/><br/>
+          • How to fix dead paid traffic (targeting / hooks / first click)<br/>
+          • What to change on your product page so clicks actually turn into orders<br/>
+          • The “money leak checklist” we run on every fashion brand before ad spend goes up<br/><br/>
+
+          <strong>Put your email in. We’ll send the PDF.</strong>  
+          (We’ll also DM it on WhatsApp if your email filters are aggressive.)
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM CAPTURE -->
+    <section class="gp-form-wrap">
+      <div class="gp-form-inner">
+
+        <!-- LEFT: FORM -->
+        <div class="form-card tilt-card">
+          <div class="form-headline">
+            Get the plan
+          </div>
+          <div class="form-intro">
+            This isn’t fluff. It’s the same 7-day rollout we use to prove a brand can scale with paid.
+          </div>
+
+          <form id="growthplan-form" onsubmit="handleGrowthLeadSubmit(event)">
+            <!-- Brand / URL (optional but useful) -->
+            <div class="field-block">
+              <label for="gp_brand">Brand name / store URL (optional)</label>
+              <small>So the advice actually fits your price point + positioning.</small>
+              <input id="gp_brand" name="gp_brand" type="text" placeholder="ex: urbanhalo.co / URBAN HALO" />
+            </div>
+
+            <!-- Email (required, main send channel) -->
+            <div class="field-block">
+              <label for="gp_email">Email to send the PDF</label>
+              <small>You get the 7-Day Growth Plan instantly.</small>
+              <input id="gp_email" name="gp_email" type="email" placeholder="you@brand.com" required />
+            </div>
+
+            <!-- Phone (optional backup deliver channel / social proof) -->
+            <div class="field-block">
+              <label for="gp_phone">WhatsApp (optional)</label>
+              <small>If email lands in spam, we’ll send it here. No spam marketing, ever.</small>
+              <input id="gp_phone" name="gp_phone" type="tel" placeholder="+44 ..." />
+            </div>
+
+            <button class="submit-btn" type="submit">
+              Email Me The Plan →
+            </button>
+
+            <div id="download-box" class="download-box">
+              ✅ Done.
+              <br/><br/>
+              1) Your 7-Day Growth Plan is on the way to your email.<br/>
+              2) You can also grab it here right now:<br/><br/>
+              <a href="assets/yahme-growth-plan.pdf"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 style="color:#fff;text-decoration:underline;">
+                Download the 7-Day Growth Plan (PDF)
+              </a>
+              <br/><br/>
+              Check spam/promotions if you don’t see it in 1 minute.
+            </div>
+          </form>
+        </div>
+
+        <!-- RIGHT: SOCIAL PROOF / EXPECTATION -->
+        <aside class="side-card tilt-card">
+          <div class="side-headline">
+            Why are we giving this away?
+          </div>
+
+          <div class="side-copy">
+            <p>
+              We grow brands by fixing their paid acquisition.  
+              If we can show you, in 7 days, how to turn cold traffic profitable — you’ll know we’re not guessing.
+            </p>
+
+            <p>Inside the PDF you’ll see:</p>
+
+            <ul class="side-copy-list">
+              <li>How we script scroll-stopping hooks for fashion buyers (not “general interest” audiences)</li>
+              <li>The page-level fixes that stop people bouncing at ATC</li>
+              <li>The first retargeting steps that pull your almost-buyers back in</li>
+            </ul>
+
+            <p style="font-size:0.7rem; line-height:1.4; color:#7a7a7a;">
+              You can run it alone.
+              If you want help after, cool.  
+              If not, keep the playbook.
+            </p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+      <div class="final-headline">
+        When you’re ready to talk real spend:
+      </div>
+      <div class="final-sub">
+        We do short calls where we look at your traffic, offer, and funnel and tell you if you can profitably scale or not. Zero fluff.
+      </div>
+      <a class="final-btn" href="audit.html">
+        Book A Free 15m Call
+      </a>
+      <div class="final-footnote">
+        Yahme Media — Paid Growth Partner for Fashion Brands.
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <section class="footer-legal">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>Yahme Media</h4>
+          <p>London, UK</p>
+          <p>support@yahmemedia.com</p>
+          <p>+44 7889 697726</p>
+          <p style="margin-top:.75rem;color:#8f8f8f;font-size:.7rem;line-height:1.4">
+            Paid Growth Partner for Fashion Brands.<br/>
+            If acquisition doesn’t work, nothing else matters.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <a href="contact.html">Contact & Support</a>
+          <a href="policies.html#privacy">Privacy Policy</a>
+          <a href="policies.html#terms">Terms of Service</a>
+          <a href="policies.html#refunds">Refund Policy</a>
+          <a href="policies.html#privacy">Cookie Policy</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Yahme Media. All rights reserved.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- grain overlay duplicate on top layer -->
+  <div class="grain-overlay"></div>
+
+  <script>
+    /* tilt effect to match main site vibe */
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * 2.5;
+        const rotateY = ((x - centerX) / centerX) * -2.5;
+
+        card.style.transform = `
+          perspective(600px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          translateZ(6px)
+        `;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `
+          perspective(600px)
+          rotateX(0deg)
+          rotateY(0deg)
+          translateZ(0px)
+        `;
+      });
+    });
+  </script>
+
+</body>
+</html>

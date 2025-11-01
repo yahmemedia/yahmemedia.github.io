@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Thank You — Yahme Media</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h1,h2,h3,h4 {
+      color: #f2f2f2;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+    }
+
+    p,li,small {
+      color: #c9c9c9;
+    }
+
+    /* grain overlay */
+    .grain-overlay {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 0);
+      background-size: 3px 3px;
+      opacity: 0.07;
+      mix-blend-mode: screen;
+      z-index: 9999;
+    }
+
+    /* HEADER (same style as audit child pages) */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.15);
+    }
+
+    .header-inner {
+      width: 100%;
+      max-width: 1300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #cfcfcf;
+    }
+
+    .nav-links-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #cfcfcf;
+      padding: 0.4rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 16px rgba(157,107,255,0.4);
+      background: rgba(157,107,255,0.12);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      color: #fff;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 6px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.2);
+      padding: 0.5rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: "Roboto Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    .brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #9d6bff;
+      box-shadow: 0 0 8px rgba(157,107,255,0.9);
+    }
+
+    .nav-cta {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #fff;
+      background: rgba(157,107,255,0.15);
+      border: 1px solid rgba(157,107,255,0.6);
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      min-width: 120px;
+      text-align: center;
+      box-shadow: 0 0 16px rgba(157,107,255,0.4);
+      transition: all 0.15s ease;
+    }
+
+    .nav-cta:hover {
+      background: rgba(157,107,255,0.25);
+      box-shadow: 0 0 20px rgba(157,107,255,0.55);
+    }
+
+    .offset-top {
+      padding-top: 64px;
+    }
+
+    /* Main Thank You Section */
+    .ty-wrap {
+      position: relative;
+      background: #000;
+      min-height: calc(100vh - 64px);
+      padding: 4rem 1.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .ty-inner {
+      width: 100%;
+      max-width: 800px;
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* glow blob like other pages */
+    .ty-blob {
+      position: absolute;
+      right: -20%;
+      bottom: -10%;
+      width: 60vw;
+      height: 60vh;
+      background: radial-gradient(
+        circle at 30% 30%,
+        rgba(157,107,255,0.22) 0%,
+        rgba(0,0,0,0) 70%
+      );
+      filter: blur(120px) brightness(1.4);
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: floatBlob 20s ease-in-out infinite;
+    }
+
+    @keyframes floatBlob {
+      0%   { transform: translate3d(0%,0%,0) scale(1); }
+      50%  { transform: translate3d(-4%,-4%,0) scale(1.06); }
+      100% { transform: translate3d(0%,0%,0) scale(1); }
+    }
+
+    .ty-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.9),
+        0 0 60px rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+
+      padding: 1.5rem 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ty-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.65rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #f2f2f2;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.15);
+      backdrop-filter: blur(10px);
+      width: max-content;
+    }
+
+    .ty-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #9d6bff;
+      box-shadow: 0 0 8px rgba(157,107,255,0.9);
+    }
+
+    .ty-headline {
+      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
+      line-height: 1.25;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: #f2f2f2;
+    }
+
+    .ty-body {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #c9c9c9;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 650px;
+    }
+
+    .ty-body strong {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .ty-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #bdbdbd;
+    }
+
+    .ty-list li::before {
+      content: "– ";
+      color: #9d6bff;
+    }
+
+    /* back home button */
+    .home-btn {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      min-width: 200px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+      backdrop-filter: blur(10px);
+      width: max-content;
+    }
+
+    .home-btn:hover {
+      background: rgba(157,107,255,0.15);
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 20px rgba(157,107,255,0.4);
+    }
+
+    /* FOOTER LEGAL (same as other pages) */
+    .footer-legal {
+      width: 100%;
+      background: #000;
+      padding: 3rem 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 800px) {
+      .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    .footer-brand h4 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #c9c9c9;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: #7f7f7f;
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      padding-left: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: #9d6bff;
+      text-shadow: 0 0 8px rgba(157,107,255,0.6);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 1rem;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: #6a6aa;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- grain -->
+  <div class="grain-overlay"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+        <div class="nav-links-group">
+          <a class="nav-link" href="index.html#top">Home</a>
+          <a class="nav-link" href="index.html#phase1">Services</a>
+          <a class="nav-link" href="index.html#phase2">Growth Package</a>
+          <a class="nav-link" href="index.html#about">About</a>
+          <a class="nav-link" href="index.html#faq">FAQ</a>
+        </div>
+
+        <div class="nav-links-group">
+          <a class="nav-link" href="audit.html">Book Audit</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </div>
+      </nav>
+
+      <div class="nav-right">
+        <div class="brand-mark">
+          <span class="brand-dot"></span>
+          <span>Yahme&nbsp;Media</span>
+        </div>
+
+        <a class="nav-cta" href="audit.html">
+          Free Audit
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="offset-top">
+    <section class="ty-wrap">
+      <div class="ty-blob"></div>
+
+      <div class="ty-inner">
+
+        <div class="ty-eyebrow">
+          <span class="ty-dot"></span>
+          <span>Submission received</span>
+        </div>
+
+        <div class="ty-card">
+          <div class="ty-headline">
+            You’re in. We’re already looking at your brand.
+          </div>
+
+          <div class="ty-body">
+            <p>
+              Your answers just hit our system.
+              We’re generating your <strong>Mini Audit</strong> — a fast breakdown of
+              what’s leaking, what’s fixable, and what we’d attack first.
+            </p>
+
+            <ul class="ty-list">
+              <li>You’ll get that Mini Audit sent directly to your email.</li>
+              <li>We’ll reach out using the number you gave us to line up a time to talk.</li>
+              <li>On that call we’ll go straight into creative, funnel, and ad spend efficiency — no fluff.</li>
+            </ul>
+
+            <p style="font-size:0.75rem; line-height:1.4; color:#7a7a7a;">
+              We only take on brands we believe we can profitably scale.
+              This protects you from wasted spend — and protects us from babysitting accounts we can’t grow.
+            </p>
+          </div>
+
+          <a class="home-btn" href="index.html#top">
+            ← Return to Home
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <section class="footer-legal">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>Yahme Media</h4>
+          <p>Northampton, UK</p>
+          <p>contact@yahmemedia.net</p>
+          <p>+44 7889 697726</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="contact.html">Contact & Support</a>
+          <a href="policies.html#privacy">Privacy Policy</a>
+          <a href="policies.html#terms">Terms of Service</a>
+          <a href="policies.html#refunds">Refund Policy</a>
+          <a href="policies.html#privacy">Cookie Policy</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Yahme Media. All rights reserved.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- grain overlay top layer (for texture on top of everything) -->
+  <div class="grain-overlay"></div>
+
+</body>
+</html>
