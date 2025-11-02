@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Yahme Media — Free Strategy Call Intake</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h1,h2,h3,h4 {
+      color: #f2f2f2;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+    }
+
+    p,li,label,small {
+      color: #c9c9c9;
+    }
+
+    /* GLOBAL grain overlay */
+    .grain-overlay {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 0);
+      background-size: 3px 3px;
+      opacity: 0.07;
+      mix-blend-mode: screen;
+      z-index: 9999;
+    }
+
+    /* STICKY HEADER / NAV (child-page version) */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.15);
+    }
+
+    .header-inner {
+      width: 100%;
+      max-width: 1300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #cfcfcf;
+    }
+
+    .nav-links-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #cfcfcf;
+      padding: 0.4rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 16px rgba(157,107,255,0.4);
+      background: rgba(157,107,255,0.12);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      color: #fff;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 6px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.2);
+      padding: 0.5rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: "Roboto Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    .brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #9d6bff;
+      box-shadow: 0 0 8px rgba(157,107,255,0.9);
+    }
+
+    .nav-cta {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #fff;
+      background: rgba(157,107,255,0.15);
+      border: 1px solid rgba(157,107,255,0.6);
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      min-width: 120px;
+      text-align: center;
+      box-shadow: 0 0 16px rgba(157,107,255,0.4);
+      transition: all 0.15s ease;
+    }
+
+    .nav-cta:hover {
+      background: rgba(157,107,255,0.25);
+      box-shadow: 0 0 20px rgba(157,107,255,0.55);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* offset for fixed header */
+    .offset-top {
+      padding-top: 64px;
+    }
+
+    /* hero / framing section */
+    .audit-hero {
+      position: relative;
+      background: #000;
+      padding: 4rem 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    .audit-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .audit-bg-blob {
+      position: absolute;
+      left: -15%;
+      top: 5%;
+      width: 60vw;
+      height: 60vh;
+      background: radial-gradient(
+        circle at 30% 30%,
+        rgba(157,107,255,0.22) 0%,
+        rgba(0,0,0,0) 70%
+      );
+      filter: blur(120px) brightness(1.4);
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: floatBlob 20s ease-in-out infinite;
+    }
+
+    @keyframes floatBlob {
+      0%   { transform: translate3d(0%,0%,0) scale(1); }
+      50%  { transform: translate3d(4%,-4%,0) scale(1.06); }
+      100% { transform: translate3d(0%,0%,0) scale(1); }
+    }
+
+    .label-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.65rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #f2f2f2;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.9),
+        0 0 40px rgba(157,107,255,0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .label-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #9d6bff;
+      box-shadow: 0 0 8px rgba(157,107,255,0.9);
+    }
+
+    .audit-title {
+      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
+      line-height: 1.25;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: #f2f2f2;
+      max-width: 700px;
+    }
+
+    .audit-sub {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      font-weight: 400;
+      color: #c9c9c9;
+      max-width: 700px;
+    }
+
+    .audit-sub strong {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    /* form section wrapper */
+    .audit-form-wrap {
+      background: #000;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .audit-form-inner {
+      width: 100%;
+      max-width: 1200px;
+      position: relative;
+      z-index: 5;
+
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .audit-form-inner {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    /* main form card */
+    .form-card {
+      position: relative;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.9),
+        0 0 60px rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+
+      padding: 1.25rem 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-headline {
+      font-size: 1rem;
+      line-height: 1.3;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .form-intro {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #c9c9c9;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #fff;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    small {
+      font-size: 0.7rem;
+      line-height: 1.4;
+      color: #7a7a7a;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      font-family: inherit;
+      padding: 0.75rem 0.75rem;
+      outline: none;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.07);
+      transition: all 0.15s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 16px rgba(157,107,255,0.4),
+                  0 30px 80px rgba(0,0,0,0.95);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      min-width: 220px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .submit-btn:hover {
+      background: rgba(157,107,255,0.15);
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 20px rgba(157,107,255,0.4);
+    }
+
+    .disclaimer-box {
+      font-size: 0.7rem;
+      line-height: 1.45;
+      color: #7a7a7a;
+    }
+
+    /* side card / expectation-setting */
+    .side-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.9),
+        0 0 60px rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 1rem;
+      position: relative;
+    }
+
+    .side-headline {
+      font-size: 0.9rem;
+      line-height: 1.3;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .side-copy {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #c9c9c9;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .side-copy-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #bdbdbd;
+    }
+
+    .side-copy-list li::before {
+      content: "– ";
+      color: #9d6bff;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      width: 100%;
+      background: #000;
+      padding: 3rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .final-headline {
+      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
+      line-height: 1.25;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: #f2f2f2;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .final-sub {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #c9c9c9;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .final-btn {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      min-width: 220px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.9),
+        0 0 30px rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .final-btn:hover {
+      background: rgba(157,107,255,0.15);
+      border-color: rgba(157,107,255,0.6);
+      box-shadow: 0 0 20px rgba(157,107,255,0.4);
+    }
+
+    .final-footnote {
+      font-size: 0.7rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* FOOTER LEGAL */
+    .footer-legal {
+      width: 100%;
+      background: #000;
+      padding: 3rem 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 800px) {
+      .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+
+    .footer-brand h4 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #c9c9c9;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: #7f7f7f;
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      padding-left: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: #9d6bff;
+      text-shadow: 0 0 8px rgba(157,107,255,0.6);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 1rem;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: #6a6aa;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- grain -->
+  <div class="grain-overlay"></div>
+
+  <!-- HEADER (child-page version) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+
+        <div class="nav-links-group">
+          <a class="nav-link" href="index.html#top">Home</a>
+          <a class="nav-link" href="index.html#phase1">Services</a>
+          <a class="nav-link" href="index.html#phase2">Growth Package</a>
+          <a class="nav-link" href="index.html#about">About</a>
+          <a class="nav-link" href="index.html#faq">FAQ</a>
+        </div>
+
+        <div class="nav-links-group">
+          <a class="nav-link" href="growthplan.html">Free Growth Plan</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </div>
+
+      </nav>
+
+      <div class="nav-right">
+        <div class="brand-mark">
+          <span class="brand-dot"></span>
+          <span>Yahme&nbsp;Media</span>
+        </div>
+
+        <a class="nav-cta" href="audit.html">
+          Free Strategy Call
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main class="offset-top">
+
+    <!-- Intro / Hero -->
+    <section class="audit-hero">
+      <div class="audit-bg-blob"></div>
+
+      <div class="audit-inner">
+        <div class="label-tag">
+          <span class="label-dot"></span>
+          <span>Strategy Call Intake</span>
+        </div>
+
+        <div class="audit-title">
+          Book your free 15-minute strategy call.
+        </div>
+
+        <div class="audit-sub">
+          Tell us where you’re at so we can prep before we speak.
+          We’ll review your traffic, offer, funnel leaks, and come to the call with
+          practical fixes — not vague “post more on socials” advice.
+          <br/><br/>
+          <strong>This is not a sales script. This is prep so we don’t waste your time on the call.</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="audit-form-wrap">
+      <div class="audit-form-inner">
+
+        <!-- left: form -->
+        <div class="form-card">
+          <div class="form-headline">
+            Brand Snapshot
+          </div>
+          <div class="form-intro">
+            Be honest. The more real you are here, the more useful the call will be.
+          </div>
+
+          <!-- FORM START (Formspree wiring preserved) -->
+          <form
+            action="https://formspree.io/f/xwpwlyjl"
+            method="POST"
+          >
+            <!-- Redirect after submit -->
+            <input type="hidden" name="_next" value="./thankyoupage.html" />
+
+            <!-- Q1: Brand size / revenue -->
+            <div class="field-block">
+              <label for="revenueRange">Monthly revenue range?</label>
+              <small>(We use this to understand your stage and what’s realistic to promise)</small>
+              <select id="revenueRange" name="revenueRange" required>
+                <option value="">Select one...</option>
+                <option value="<5k">&lt; £5k / month</option>
+                <option value="5-20k">£5k – £20k / month</option>
+                <option value="20-50k">£20k – £50k / month</option>
+                <option value="50k+">£50k+ / month</option>
+              </select>
+            </div>
+
+            <!-- Q2: Ad spend -->
+            <div class="field-block">
+              <label for="adSpend">Monthly paid ad spend right now?</label>
+              <small>(If you’re not running ads yet, just say 0)</small>
+              <select id="adSpend" name="adSpend" required>
+                <option value="">Select one...</option>
+                <option value="0">£0 (not running ads yet)</option>
+                <option value="<1k">&lt; £1k / month</option>
+                <option value="1-5k">£1k – £5k / month</option>
+                <option value="5-15k">£5k – £15k / month</option>
+                <option value="15k+">£15k+ / month</option>
+              </select>
+            </div>
+
+            <!-- Q3: Primary sales channel -->
+            <div class="field-block">
+              <label for="channel">Where do most of your sales come from right now?</label>
+              <small>(This tells us if traffic quality or site conversion is the real blocker)</small>
+              <select id="channel" name="channel" required>
+                <option value="">Select one...</option>
+                <option value="instagram-organic">Instagram / TikTok organic</option>
+                <option value="paid-ads">Paid ads (Meta / TikTok / Google)</option>
+                <option value="word-of-mouth">Word of mouth / community</option>
+                <option value="retail">Wholesale / retail / in-person</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Q4: Main blocker -->
+            <div class="field-block">
+              <label for="blocker">What’s the #1 thing stopping you from scaling right now?</label>
+              <small>(e.g. “ads don’t convert”, “ROAS too low”, “nobody clicks”, “AOV too low”, “site drop-off”)</small>
+              <textarea id="blocker" name="blocker" placeholder="Tell us where it breaks..." required></textarea>
+            </div>
+
+            <!-- Q5: 60 day goal -->
+            <div class="field-block">
+              <label for="goal">In the next 60 days, what would a ‘win’ look like for you?</label>
+              <small>(e.g. “consistent 3x ROAS at £2k/day spend”, “£10k/mo without me packing orders myself”)</small>
+              <textarea id="goal" name="goal" placeholder="Be specific. We'll tell you if it’s realistic." required></textarea>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="field-block">
+              <label for="brandName">Brand name / store URL</label>
+              <small>(So we can actually review it before the call)</small>
+              <input id="brandName" name="brandName" type="text" placeholder="ex: urbanhalo.co / URBAN HALO" required />
+            </div>
+
+            <div class="field-block">
+              <label for="email">Your email</label>
+              <small>We’ll confirm the call here if WhatsApp doesn’t go through.</small>
+              <input id="email" name="email" type="email" placeholder="you@brand.com" required />
+            </div>
+
+            <div class="field-block">
+              <label for="phone">Phone / WhatsApp</label>
+              <small>We’ll use this to lock a time for the call. No spam.</small>
+              <input id="phone" name="phone" type="tel" placeholder="+44 ..." />
+            </div>
+
+            <!-- Availability -->
+            <div class="field-block">
+              <label for="callDate">When are you generally free to talk?</label>
+              <small>(Give 1–3 options. We’ll text you and lock one in.)</small>
+              <input id="callDate" name="callDate" type="text" placeholder="Example: Mon 4 Nov after 3pm / Tue 5 Nov morning / Sat anytime" />
+            </div>
+
+            <!-- Preferred contact method -->
+            <div class="field-block">
+              <label for="contactPreference">How should we confirm the slot?</label>
+              <small>(Pick what you’ll actually see fast)</small>
+              <select id="contactPreference" name="contactPreference" required>
+                <option value="">Select one...</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="sms">SMS/Text</option>
+                <option value="email">Email</option>
+              </select>
+            </div>
+
+            <button class="submit-btn" type="submit">
+              Book My Free Strategy Call →
+            </button>
+
+            <div class="disclaimer-box">
+              After you submit:<br/>
+              1) We review your answers and look at your store / offer / funnel.<br/>
+              2) We message you on your preferred channel to lock a 15-minute slot.<br/>
+              3) On the call we show you where you’re leaking money and what we’d fix first.
+            </div>
+          </form>
+          <!-- FORM END -->
+        </div>
+
+        <!-- right: expectations / positioning -->
+        <aside class="side-card">
+          <div class="side-headline">
+            What happens on the call?
+          </div>
+
+          <div class="side-copy">
+            <p>
+              This is not a high-pressure sales call.
+              You’re not getting some “closer.”
+            </p>
+
+            <p>
+              You’re talking directly to the people who actually build and run the ads.
+              We’ll show you exactly what we’d fix first, and whether it even makes sense
+              to work together.
+            </p>
+
+            <ul class="side-copy-list">
+              <li>We look at your offer, traffic quality, and funnel drop-off.</li>
+              <li>We tell you if the issue is your ads or your conversion.</li>
+              <li>If we can solve it, we’ll explain how. If not, we’ll say so directly.</li>
+            </ul>
+
+            <p style="font-size:0.7rem; line-height:1.4; color:#7a7a7a;">
+              We only take on brands we’re confident we can scale.
+              You only continue if it actually makes financial sense.
+            </p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+      <div class="final-headline">
+        We’ll come prepared.
+      </div>
+      <div class="final-sub">
+        By the time we speak, we’ll already know where your money’s leaking — so the call is about solutions, not discovery.
+      </div>
+      <a class="final-btn" href="pricing.html">
+        See Packages / Pricing
+      </a>
+      <div class="final-footnote">
+        Yahme Media — Fashion Growth Partner
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <section class="footer-legal">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>Yahme Media</h4>
+          <p>Northampton, UK</p>
+          <p>contact@yahmemedia.net</p>
+          <p>+44 7889 697726</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="contact.html">Contact & Support</a>
+          <a href="policies.html#privacy">Privacy Policy</a>
+          <a href="policies.html#terms">Terms of Service</a>
+          <a href="policies.html#refunds">Refund Policy</a>
+          <a href="policies.html#privacy">Cookie Policy</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Yahme Media. All rights reserved.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- grain overlay duplicate on top layer -->
+  <div class="grain-overlay"></div>
+
+</body>
+</html>
