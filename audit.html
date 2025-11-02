@@ -848,15 +848,18 @@
           </div>
 
           <!-- FORM START (Formspree wiring preserved) -->
-          <form
-            action="https://formspree.io/f/xwpwlyjl"
-            method="POST"
-          >
-           <input type="hidden" name="_redirect" value="https://yahmemedia.net/thankyoupage.html">
-           <!-- all your other inputs here -->
-          >
+         <form
+          id="auditForm"
+          action="https://formspree.io/f/xwpwlyjl"
+          method="POST"
+         >
+  <!-- you can DELETE any _next / _redirect hidden inputs now -->
+
+          <input type="hidden" name="_next" value="https://yahmemedia.net/thankyoupage.html" />
+
+          <!-- the rest of your form fields -->
+ 
             <!-- Redirect after submit -->
-            <input type="hidden" name="_next" value="./thankyoupage.html" />
 
             <!-- Q1: Brand size / revenue -->
             <div class="field-block">
@@ -1047,12 +1050,42 @@
   <div class="grain-overlay"></div>
 
 <script>
+
   function toggleMobileMenu() {
     const drawer = document.getElementById('mobileDrawer');
     if (!drawer) return;
     drawer.classList.toggle('open');
   }
-</script>
+// --- Formspree manual submit + custom redirect ---
+(function () {
+  const form = document.getElementById("auditForm");
+  if (!form) return;
 
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // stop normal browser submit (prevents Formspree's default redirect)
+
+    const endpoint = form.getAttribute("action"); // https://formspree.io/f/xwpwlyjl
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json"
+        },
+        body: formData
+      });
+
+      // Optional: you can check res.ok / status here
+      // but either way we move them to our thank you page
+      window.location.href = "https://yahmemedia.net/thankyoupage.html";
+    } catch (err) {
+      // if something actually fails (no internet etc),
+      // fallback: still show thank you (you could also show an alert instead)
+      window.location.href = "https://yahmemedia.net/thankyoupage.html";
+    }
+  });
+})();
+</script>
 </body>
 </html>
