@@ -3,760 +3,696 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Yahme Media — Pricing & Plans</title>
+  <title>Yahme Media — Packages</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  <!-- index fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/global.css">
+
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: flex-start;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    h1,h2,h3,h4 {
-      color: #f2f2f2;
-      font-weight: 300;
-      letter-spacing: -0.03em;
-    }
-
-    p,li {
-      color: #c9c9c9;
-    }
-
-    /* GLOBAL grain overlay */
-    .grain-overlay {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 0);
-      background-size: 3px 3px;
-      opacity: 0.07;
-      mix-blend-mode: screen;
-      z-index: 9999;
-    }
-
-    /* STICKY HEADER / NAV (child-page version) */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      z-index: 9998;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 1rem;
-
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,0.9),
-        0 0 40px rgba(157,107,255,0.15);
-    }
-
-    .header-inner {
-      width: 100%;
-      max-width: 1300px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem 1rem;
-      font-size: 0.7rem;
-      line-height: 1.2;
-      font-weight: 400;
-      color: #cfcfcf;
-    }
-
-    .nav-links-group {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem 1rem;
-    }
-
-    .nav-link {
-      position: relative;
-      font-size: 0.7rem;
-      line-height: 1.2;
-      font-weight: 400;
-      color: #cfcfcf;
-      padding: 0.4rem 0.5rem;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(0,0,0,0.3);
-      transition: all 0.15s ease;
-    }
-
-    .nav-link:hover {
-      color: #fff;
-      border-color: rgba(157,107,255,0.6);
-      box-shadow: 0 0 16px rgba(157,107,255,0.4);
-      background: rgba(157,107,255,0.12);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .brand-mark {
-      color: #fff;
-      font-weight: 400;
-      font-size: 0.8rem;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 6px;
-      box-shadow:
-        0 30px 80px rgba(0,0,0,0.9),
-        0 0 40px rgba(157,107,255,0.2);
-      padding: 0.5rem 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: "Roboto Mono", monospace;
-      text-transform: uppercase;
-    }
-
-    .brand-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #9d6bff;
-      box-shadow: 0 0 8px rgba(157,107,255,0.9);
-    }
-
-    .nav-cta {
-      font-size: 0.7rem;
-      line-height: 1.2;
-      font-weight: 400;
-      color: #fff;
-      background: rgba(157,107,255,0.15);
-      border: 1px solid rgba(157,107,255,0.6);
-      border-radius: 6px;
-      padding: 0.5rem 0.6rem;
-      min-width: 120px;
-      text-align: center;
-      box-shadow: 0 0 16px rgba(157,107,255,0.4);
-      transition: all 0.15s ease;
-    }
-
-    .nav-cta:hover {
-      background: rgba(157,107,255,0.25);
-      box-shadow: 0 0 20px rgba(157,107,255,0.55);
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* offset for fixed header */
-    .offset-top {
-      padding-top: 64px;
-    }
-
-    /* reused visuals */
-    .label-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 4px;
-      padding: 0.4rem 0.6rem;
-      font-family: "Roboto Mono", monospace;
-      font-size: 0.65rem;
-      line-height: 1.2;
-      font-weight: 400;
-      color: #f2f2f2;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      box-shadow:
-        0 30px 80px rgba(0,0,0,0.9),
-        0 0 40px rgba(157,107,255,0.15);
-      backdrop-filter: blur(10px);
-    }
-
-    .label-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: #9d6bff;
-      box-shadow: 0 0 8px rgba(157,107,255,0.9);
-    }
-
-    /* page hero / intro */
-    .pricing-hero {
-      position: relative;
-      background: #000;
-      padding: 4rem 1.5rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      overflow: hidden;
-    }
-
-    .pricing-inner {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      position: relative;
-      z-index: 5;
-    }
-
-    .pricing-bg-blob {
-      position: absolute;
-      left: -15%;
-      top: 10%;
-      width: 60vw;
-      height: 60vh;
-      background: radial-gradient(
-        circle at 30% 30%,
-        rgba(157,107,255,0.22) 0%,
-        rgba(0,0,0,0) 70%
-      );
-      filter: blur(120px) brightness(1.4);
-      opacity: 0.22;
-      mix-blend-mode: screen;
-      pointer-events: none;
-      animation: floatBlob 20s ease-in-out infinite;
-    }
-
-    @keyframes floatBlob {
-      0%   { transform: translate3d(0%,0%,0) scale(1); }
-      50%  { transform: translate3d(4%,-4%,0) scale(1.06); }
-      100% { transform: translate3d(0%,0%,0) scale(1); }
-    }
-
-    .pricing-eyebrow {
-      display: inline-block;
-    }
-
-    .pricing-title {
-      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
-      line-height: 1.25;
-      font-weight: 300;
-      letter-spacing: -0.03em;
-      color: #f2f2f2;
-      max-width: 700px;
-    }
-
-    .pricing-sub {
-      font-size: 0.85rem;
-      line-height: 1.5;
-      font-weight: 400;
-      color: #c9c9c9;
-      max-width: 700px;
-    }
-
-    /* pricing grid section */
-    .pricing-grid-wrap {
-      background: #000;
-      padding: 2rem 1.5rem 4rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .pricing-grid-inner {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      position: relative;
-      z-index: 5;
-    }
-
-    .plan-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 900px) {
-      .plan-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .plan-card {
-      position: relative;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      box-shadow:
-        0 40px 120px rgba(0,0,0,0.9),
-        0 0 60px rgba(255,255,255,0.07);
-      backdrop-filter: blur(10px);
-
-      padding: 1.25rem 1rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      min-height: 320px;
-
-      transform-style: preserve-3d;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-
-    .plan-card:hover {
-      transform: perspective(600px) rotateX(2deg) rotateY(-2deg) translateZ(5px);
-      box-shadow:
-        0 0 25px rgba(157,107,255,0.4),
-        0 40px 120px rgba(0,0,0,0.95);
-      border-color: rgba(157,107,255,0.6);
-    }
-
-    .plan-card:hover::after {
-      opacity: 0.22;
-    }
-
-    .plan-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle at 10% 10%,
-        rgba(255,255,255,0.18) 0%,
-        rgba(0,0,0,0) 70%
-      );
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      border-radius: inherit;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .plan-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: "Roboto Mono", monospace;
-      font-size: 0.6rem;
-      line-height: 1.2;
-      color: #9d6bff;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .plan-title {
-      font-size: 1rem;
-      line-height: 1.3;
-      font-weight: 300;
-      color: #fff;
-      letter-spacing: -0.03em;
-    }
-
-    .plan-for {
-      font-size: 0.75rem;
-      line-height: 1.4;
-      color: #bdbdbd;
-    }
-
-    .plan-price {
-      font-size: 1rem;
-      line-height: 1.3;
-      font-weight: 300;
-      color: #f2f2f2;
-      letter-spacing: -0.03em;
-    }
-
-    .plan-price-note {
-      font-size: 0.7rem;
-      line-height: 1.4;
-      color: #c9c9c9;
-    }
-
-    .plan-list {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      line-height: 1.45;
-      color: #bdbdbd;
-    }
-
-    .plan-list li::before {
-      content: "– ";
-      color: #9d6bff;
-    }
-
-    .plan-cta {
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 400;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 20px 60px rgba(0,0,0,0.9),
-        0 0 30px rgba(255,255,255,0.2);
-      transition: all 0.15s ease;
-      backdrop-filter: blur(10px);
-      margin-top: 0.5rem;
-    }
-
-    .plan-cta:hover {
-      background: rgba(157,107,255,0.15);
-      border-color: rgba(157,107,255,0.6);
-      box-shadow: 0 0 20px rgba(157,107,255,0.4);
-    }
-
-    /* disclaimer block under plan 2 */
-    .disclaimer-block {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      box-shadow:
-        0 30px 80px rgba(0,0,0,0.9),
-        0 0 60px rgba(157,107,255,0.1);
-      backdrop-filter: blur(10px);
-
-      padding: 1rem 1rem 1rem;
-      font-size: 0.75rem;
-      line-height: 1.5;
-      color: #c9c9c9;
-    }
-
-    .disclaimer-block strong {
-      color: #fff;
-      font-weight: 400;
-    }
-
-    /* FINAL CTA */
-    .final-cta {
-      width: 100%;
-      background: #000;
-      padding: 3rem 1.5rem 5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.25rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .final-headline {
-      font-size: clamp(1.4rem, 0.4vw + 1rem, 1.8rem);
-      line-height: 1.25;
-      font-weight: 300;
-      letter-spacing: -0.03em;
-      color: #f2f2f2;
-      text-align: center;
-      max-width: 700px;
-    }
-
-    .final-sub {
-      font-size: 0.8rem;
-      line-height: 1.5;
-      color: #c9c9c9;
-      max-width: 480px;
-      text-align: center;
-    }
-
-    .final-btn {
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      min-width: 220px;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 400;
-      line-height: 1.2;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 20px 60px rgba(0,0,0,0.9),
-        0 0 30px rgba(255,255,255,0.2);
-      transition: all 0.15s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .final-btn:hover {
-      background: rgba(157,107,255,0.15);
-      border-color: rgba(157,107,255,0.6);
-      box-shadow: 0 0 20px rgba(157,107,255,0.4);
-    }
-
-    .final-footnote {
-      font-size: 0.7rem;
-      color: #666;
-      line-height: 1.4;
-    }
-
-    /* FOOTER LEGAL */
-    .footer-legal {
-      width: 100%;
-      background: #000;
-      padding: 3rem 1.5rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .footer-inner {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .footer-top {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    @media (min-width: 800px) {
-      .footer-top {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    }
-
-    .footer-brand h4 {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
-
-    .footer-brand p {
-      font-size: 0.8rem;
-      line-height: 1.5;
-      color: #c9c9c9;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .footer-links a {
-      font-size: 0.8rem;
-      color: #7f7f7f;
-      text-decoration: none;
-      transition: color 0.2s ease, text-shadow 0.2s ease;
-      border-left: 1px solid rgba(255,255,255,0.05);
-      padding-left: 0.5rem;
-    }
-
-    .footer-links a:hover {
-      color: #9d6bff;
-      text-shadow: 0 0 8px rgba(157,107,255,0.6);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding-top: 1rem;
-      text-align: center;
-    }
-
-    .footer-bottom p {
-      font-size: 0.75rem;
-      color: #6a6aa;
-    }
-
-/* HAMBURGER BUTTON (hidden on desktop) */
-.mobile-menu-button {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 6px;
-  width: 36px;
-  height: 32px;
-  padding: 0;
-  cursor: pointer;
-  box-shadow:
-    0 30px 80px rgba(0,0,0,0.9),
-    0 0 20px rgba(157,107,255,0.3);
-}
-
-.burger-line {
-  width: 18px;
-  height: 2px;
-  background: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 8px rgba(157,107,255,0.7);
-}
-
-/* MOBILE DRAWER (dropdown menu) */
-.mobile-drawer {
-  position: absolute;
-  top: 64px; /* same as header height */
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.9);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  box-shadow:
-    0 40px 120px rgba(0,0,0,0.95),
-    0 0 40px rgba(157,107,255,0.2);
-  display: none;
-  flex-direction: column;
-  padding: 1rem;
-  z-index: 9997;
-}
-
-.mobile-drawer-link {
-  color: #fff;
-  font-size: 0.85rem;
-  line-height: 1.4;
-  font-weight: 400;
-  padding: 0.75rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.3);
-  margin-bottom: 0.5rem;
-  text-decoration: none;
-  display: block;
-}
-.mobile-drawer-link:hover {
-  background: rgba(157,107,255,0.15);
-  border-color: rgba(157,107,255,0.6);
-  box-shadow: 0 0 16px rgba(157,107,255,0.4);
-  color: #fff;
-}
-
-.mobile-divider {
-  height: 1px;
-  background: rgba(255,255,255,0.08);
-  margin: 0.5rem 0 1rem;
-}
-
-/* ===== RESPONSIVE BREAKPOINT ===== */
-@media (max-width: 768px) {
-  /* hide desktop nav links and desktop CTA on mobile */
-  .nav-links-desktop {
-    display: none;
-  }
-
-  .nav-cta-desktop {
-    display: none;
-  }
-
-  /* show the burger on mobile */
-  .mobile-menu-button {
-    display: flex;
-  }
-
-  /* tighten spacing so header doesn't wrap ugly */
-  .header-inner {
-    justify-content: space-between;
-  }
-
-  .nav-left {
-    width: auto;
-    flex-wrap: nowrap;
-  }
-
-  .nav-right {
-    gap: 0.5rem;
-  }
-}
-
-/* On desktop keep drawer hidden */
-@media (min-width: 769px) {
-  .mobile-drawer {
-    display: none !important;
-  }
-}
-
-/* When drawer is active (JS toggles .open) */
-.mobile-drawer.open {
-  display: flex;
-}
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+    html{scroll-behavior:smooth;}
+
+    body{
+      background:#fff;
+      color:#111;
+      font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      overflow-x:hidden;
+      position:relative;
+    }
+    a{text-decoration:none;color:inherit;}
+
+    h1,h2,h3,h4,
+    .section-title,
+    .phase-title,
+    .final-headline{
+      color:#111;
+      font-weight:500;
+      letter-spacing:-0.02em;
+    }
+    p,li,.final-sub,.footer-brand p{color:#3b3b3b;}
+
+    /* grain overlay (index) */
+    .grain-overlay{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:radial-gradient(rgba(0,0,0,0.08) 1px,transparent 0);
+      background-size:3px 3px;
+      opacity:.05;
+      mix-blend-mode:multiply;
+      z-index:9999;
+    }
+
+    /* HEADER (exact index) */
+    .site-header{
+      position:fixed;top:0;left:0;right:0;
+      height:70px;
+      z-index:9998;
+      display:flex;align-items:center;justify-content:center;
+      padding:0 1rem;
+      background:rgba(255,255,255,0.72);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      box-shadow:0 20px 70px rgba(0,0,0,0.08);
+    }
+    .header-inner{
+      width:100%;
+      max-width:1300px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+    }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:.75rem 1rem;
+      font-size:.78rem;
+      line-height:1.2;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#444;
+    }
+    .nav-links-group{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:.75rem 1rem;
+    }
+    .nav-link{
+      position:relative;
+      font-size:.78rem;
+      line-height:1.2;
+      font-weight:600;
+      color:#444;
+      padding:.5rem .85rem;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,0.08);
+      background:rgba(255,255,255,0.6);
+      transition:all .18s ease;
+    }
+    .nav-link:hover{
+      color:#111;
+      border-color:rgba(0,0,0,0.14);
+      box-shadow:0 10px 30px rgba(0,0,0,0.10);
+      background:rgba(255,255,255,0.85);
+      transform:translateY(-1px);
+    }
+    .nav-right{display:flex;align-items:center;gap:.75rem;}
+    .brand-mark{
+      color:#111;
+      font-weight:600;
+      font-size:.84rem;
+      letter-spacing:.18em;
+      line-height:1.2;
+      background:rgba(255,255,255,0.75);
+      border:1px solid rgba(0,0,0,0.10);
+      border-radius:999px;
+      box-shadow:0 18px 60px rgba(0,0,0,0.08);
+      padding:.55rem 1rem;
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+      font-family:"Roboto Mono",monospace;
+      text-transform:uppercase;
+    }
+    .brand-dot{
+      width:7px;height:7px;border-radius:999px;
+      background:#9d6bff;
+      box-shadow:0 0 10px rgba(157,107,255,0.55);
+    }
+    .nav-cta{
+      font-size:.78rem;
+      line-height:1.2;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#111;
+      background:rgba(157,107,255,0.12);
+      border:1px solid rgba(157,107,255,0.45);
+      border-radius:999px;
+      padding:.62rem 1rem;
+      min-width:150px;
+      text-align:center;
+      box-shadow:0 0 22px rgba(157,107,255,0.22);
+      transition:all .18s ease;
+    }
+    .nav-cta:hover{
+      background:rgba(157,107,255,0.16);
+      box-shadow:0 0 28px rgba(157,107,255,0.30);
+      transform:translateY(-1px);
+    }
+
+    .offset-top{padding-top:70px;}
+
+    /* label tag (index) */
+    .label-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      background:rgba(255,255,255,0.85);
+      border:1px solid rgba(0,0,0,0.10);
+      border-radius:999px;
+      padding:.5rem .9rem;
+      font-family:"Roboto Mono",monospace;
+      font-size:.64rem;
+      line-height:1.2;
+      font-weight:400;
+      color:#111;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      box-shadow:0 16px 55px rgba(0,0,0,0.08);
+      backdrop-filter:blur(10px);
+    }
+    .label-dot{
+      width:6px;height:6px;border-radius:999px;
+      background:#9d6bff;
+      box-shadow:0 0 10px rgba(157,107,255,0.45);
+    }
+
+    /* PAGE WRAP */
+    .page-wrap{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      padding:2.4rem 1.5rem 4.2rem;
+      background:#fff;
+    }
+    .page-inner{
+      width:100%;
+      max-width:980px;
+      display:flex;
+      flex-direction:column;
+      gap:1.6rem; /* space between sections */
+    }
+
+    /* INTRO (NOT BOXED) */
+    .intro{
+      padding: .15rem 0 .35rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+
+    .section-title{
+      font-size:clamp(1.9rem,.7vw + 1.3rem,2.4rem);
+      line-height:1.15;
+    }
+
+    /* Jump links */
+    .jump-row{
+      width:100%;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.75rem;
+      margin-top:.2rem;
+    }
+    .jump-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      padding:.52rem .85rem;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,0.10);
+      background:rgba(255,255,255,0.70);
+      box-shadow:0 16px 55px rgba(0,0,0,0.08);
+      font-family:"Roboto Mono",monospace;
+      font-size:.62rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#111;
+      transition:all .18s ease;
+      white-space:nowrap;
+    }
+    .jump-pill:hover{
+      border-color:rgba(255,59,59,0.35);
+      box-shadow:0 0 22px rgba(255,59,59,0.16), 0 18px 60px rgba(0,0,0,0.10);
+      transform:translateY(-1px);
+    }
+    .jump-pill .dot{
+      width:6px;height:6px;border-radius:999px;
+      background:#ff3b3b;
+      box-shadow:0 0 12px rgba(255,59,59,0.28);
+    }
+
+    /* PHASE BOX (RED) */
+    .phase-box{
+      background:linear-gradient(135deg, rgba(255,245,245,1), rgba(255,255,255,0.96));
+      border:1px solid rgba(255,59,59,0.30);
+      border-radius:22px;
+      padding:1.5rem 1.35rem 1.55rem;
+      box-shadow:0 0 36px rgba(255,59,59,0.12), 0 28px 110px rgba(0,0,0,0.08);
+      position:relative;
+      overflow:hidden;
+    }
+    .phase-box::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(255,59,59,0.18) 0%, rgba(255,255,255,0) 55%),
+        radial-gradient(circle at 100% 100%, rgba(157,107,255,0.12) 0%, rgba(255,255,255,0) 62%);
+      opacity:.7;
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+    .phase-content{
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      gap:1.05rem;
+    }
+
+    /* phase header row (title + price on right) */
+    .phase-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+
+    .phase-kicker{
+      font-family:"Roboto Mono",monospace;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.64rem;
+      color:#8a2f2f;
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+    }
+    .phase-kicker .dot{
+      width:7px;height:7px;border-radius:999px;
+      background:#ff3b3b;
+      box-shadow:0 0 18px rgba(255,59,59,0.30);
+    }
+
+    .phase-title{
+      font-size:clamp(1.65rem,.7vw + 1.2rem,2.2rem);
+      line-height:1.15;
+      font-weight:800;
+    }
+    .phase-sub{
+      font-size:.98rem;
+      line-height:1.75;
+      color:#2f2f2f;
+      max-width:900px;
+    }
+
+    /* price pill (now sits next to title) */
+    .price-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.62rem .85rem;
+      border-radius:999px;
+      border:1px solid rgba(255,59,59,0.40);
+      background:rgba(255,59,59,0.08);
+      box-shadow:0 0 24px rgba(255,59,59,0.14);
+      font-family:"Roboto Mono",monospace;
+      letter-spacing:.10em;
+      font-size:.80rem;
+      color:#111;
+      width:fit-content;
+      flex-wrap:wrap;
+      justify-content:flex-start;
+    }
+    .price-pill strike{color:#666;opacity:.85;}
+    .sale-tag{
+      display:inline-flex;
+      align-items:center;
+      padding:.42rem .62rem;
+      border-radius:999px;
+      border:1px solid rgba(255,59,59,0.55);
+      background:rgba(255,59,59,0.14);
+      box-shadow:0 0 26px rgba(255,59,59,0.16);
+      font-family:"Roboto Mono",monospace;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.60rem;
+      color:#111;
+    }
+
+    /* Who block */
+    .who-block{
+      margin-top:.15rem;
+      padding-top:.85rem;
+      border-top:1px solid rgba(255,59,59,0.22);
+    }
+    .mini-heading{
+      font-size:1.05rem;
+      font-weight:900;
+      color:#111;
+      letter-spacing:-0.01em;
+    }
+    ul.clean{
+      list-style:none;
+      padding-left:0;
+      margin-top:.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:.45rem;
+    }
+    ul.clean li{
+      font-size:.95rem;
+      line-height:1.65;
+      color:#2f2f2f;
+    }
+    ul.clean li::before{
+      content:"– ";
+      color:#ff3b3b;
+      text-shadow:0 0 10px rgba(255,59,59,0.14);
+    }
+
+    /* mini cards grid */
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1rem;
+      margin-top:.2rem;
+    }
+    @media(max-width:900px){.mini-grid{grid-template-columns:1fr;}}
+    .mini-card{
+      background:rgba(255,255,255,0.78);
+      border:1px solid rgba(0,0,0,0.10);
+      border-radius:18px;
+      padding:1.05rem 1rem 1.1rem;
+      box-shadow:0 20px 70px rgba(0,0,0,0.08);
+      position:relative;
+      overflow:hidden;
+      transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    .mini-card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:radial-gradient(circle at 0 0,rgba(255,59,59,0.12) 0%,rgba(255,255,255,0) 55%);
+      opacity:.55;
+      mix-blend-mode:multiply;
+      pointer-events:none;
+      transition:opacity .16s ease,transform .16s ease;
+    }
+    .mini-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(255,59,59,0.28);
+      box-shadow:0 0 22px rgba(255,59,59,0.12), 0 28px 95px rgba(0,0,0,0.10);
+    }
+    .mini-card:hover::before{opacity:.85;transform:translate3d(6px,6px,0);}
+    .mini-card h4{
+      font-size:.92rem;
+      font-weight:900;
+      letter-spacing:-0.01em;
+      color:#111;
+      margin-bottom:.55rem;
+    }
+
+    /* mini CTA (button box kept) */
+    .mini-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      padding:.9rem 1rem;
+      min-width:220px;
+      font-size:.74rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      border:1px solid rgba(255,59,59,0.35);
+      background:rgba(255,59,59,0.10);
+      color:#111;
+      box-shadow:0 0 24px rgba(255,59,59,0.14), 0 18px 60px rgba(0,0,0,0.08);
+      transition:all .18s ease;
+      width:fit-content;
+      margin-top:.35rem;
+    }
+    .mini-cta:hover{
+      transform:translateY(-1px);
+      background:rgba(255,59,59,0.14);
+      border-color:rgba(255,59,59,0.50);
+      box-shadow:0 0 32px rgba(255,59,59,0.22), 0 22px 70px rgba(0,0,0,0.10);
+    }
+
+    /* STILL NOT SURE (NOT BOXED) */
+    .help-wrap{
+      display:flex;
+      justify-content:center;
+      padding-top:.35rem;
+    }
+    .help-card{
+      width:100%;
+      max-width:980px;
+      background:linear-gradient(135deg, rgba(255,245,245,1), rgba(255,255,255,0.98));
+      border:1px solid rgba(255,59,59,0.30);
+      border-radius:18px;
+      padding:1.25rem 1.2rem;
+      box-shadow:0 0 30px rgba(255,59,59,0.14), 0 28px 110px rgba(0,0,0,0.08);
+      display:flex;
+      flex-direction:column;
+      gap:.65rem;
+    }
+    .help-card h3{
+      font-size:1.05rem;
+      font-weight:900;
+      color:#111;
+      letter-spacing:-0.01em;
+    }
+    .help-card p{
+      font-size:.95rem;
+      line-height:1.7;
+      color:#2f2f2f;
+      max-width:820px;
+    }
+
+    .red-box-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,59,59,0.10);
+      border:1px solid rgba(255,59,59,0.35);
+      color:#111;
+      border-radius:14px;
+      padding:.95rem 1.1rem;
+      min-width:240px;
+      font-size:.78rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      box-shadow:0 0 24px rgba(255,59,59,0.14), 0 18px 60px rgba(0,0,0,0.08);
+      transition:box-shadow .18s ease, transform .18s ease, background .18s ease, border-color .18s ease;
+      margin-top:.25rem;
+      width:fit-content;
+    }
+    .red-box-btn:hover{
+      transform:translateY(-1px);
+      background:rgba(255,59,59,0.14);
+      border-color:rgba(255,59,59,0.50);
+      box-shadow:0 0 32px rgba(255,59,59,0.22), 0 22px 70px rgba(0,0,0,0.10);
+    }
+
+    /* FINAL CTA + FOOTER (index) */
+    .final-cta{
+      width:100%;
+      background:#fff;
+      padding:3.2rem 1.5rem 4.7rem;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:1.2rem;
+      border-top:1px solid rgba(0,0,0,0.06);
+    }
+    .final-headline{
+      font-size:clamp(1.6rem,.6vw + 1.2rem,2rem);
+      line-height:1.25;
+      font-weight:600;
+      max-width:700px;
+      color:#111;
+    }
+    .final-sub{
+      font-size:.95rem;
+      line-height:1.7;
+      max-width:560px;
+      color:#333;
+    }
+    .final-btn{
+      background:rgba(255,255,255,0.75);
+      color:#111;
+      border:1px solid rgba(0,0,0,0.16);
+      border-radius:999px;
+      padding:.88rem 1.5rem;
+      min-width:240px;
+      text-align:center;
+      font-size:.86rem;
+      font-weight:500;
+      line-height:1.2;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 18px 55px rgba(0,0,0,0.10);
+      transition:all .18s ease;
+      backdrop-filter:blur(10px);
+    }
+    .final-btn:hover{
+      background:rgba(255,255,255,0.90);
+      border-color:rgba(255,59,59,0.40);
+      box-shadow:0 0 22px rgba(255,59,59,0.18), 0 20px 60px rgba(0,0,0,0.12);
+      transform:translateY(-1px);
+    }
+    .final-footnote{font-size:.75rem;color:#666;line-height:1.4;}
+
+    .footer-legal{
+      width:100%;
+      background:#fff;
+      padding:3rem 1.5rem 2rem;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      border-top:1px solid rgba(0,0,0,0.06);
+    }
+    .footer-inner{
+      width:100%;
+      max-width:1200px;
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    .footer-top{
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+    @media(min-width:800px){.footer-top{flex-direction:row;align-items:flex-start;}}
+    .footer-brand h4{font-size:1rem;font-weight:700;color:#111;letter-spacing:-0.01em;}
+    .footer-brand p{font-size:.9rem;line-height:1.6;color:#333;}
+    .footer-links{display:flex;flex-direction:column;gap:.55rem;}
+    .footer-links a{
+      font-size:.78rem;color:#666;text-decoration:none;
+      transition:color .2s ease,text-shadow .2s ease,border-color .2s ease;
+      border-left:1px solid rgba(0,0,0,0.08);
+      padding-left:.6rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-weight:700;
+    }
+    .footer-links a:hover{
+      color:#9d6bff;
+      text-shadow:0 0 10px rgba(157,107,255,0.20);
+      border-color:rgba(157,107,255,0.30);
+    }
+    .footer-bottom{
+      border-top:1px solid rgba(0,0,0,0.06);
+      padding-top:1rem;
+      text-align:center;
+      font-size:.72rem;
+      color:#777;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    /* scroll offsets */
+    #top,#phase1,#phase2,#custom{scroll-margin-top:88px;}
+
+    /* mobile nav (index) */
+    .mobile-menu-button{
+      display:none;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap:4px;
+      background:rgba(255,255,255,0.7);
+      border:1px solid rgba(0,0,0,0.10);
+      border-radius:10px;
+      width:42px;
+      height:36px;
+      padding:0;
+      cursor:pointer;
+      box-shadow:0 18px 55px rgba(0,0,0,0.08);
+    }
+    .burger-line{width:18px;height:2px;background:#111;border-radius:2px;opacity:.85;}
+
+    .mobile-drawer{
+      position:absolute;
+      top:70px;left:0;right:0;
+      background:rgba(255,255,255,0.92);
+      border-bottom:1px solid rgba(0,0,0,0.08);
+      backdrop-filter:blur(18px);
+      box-shadow:0 30px 110px rgba(0,0,0,0.10);
+      display:none;
+      flex-direction:column;
+      padding:1rem;
+      z-index:9997;
+    }
+    .mobile-drawer-link{
+      color:#111;
+      font-size:.82rem;
+      line-height:1.4;
+      font-weight:700;
+      padding:.85rem .7rem;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,0.08);
+      background:rgba(255,255,255,0.6);
+      margin-bottom:.55rem;
+      text-decoration:none;
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+    }
+    .mobile-drawer-link:hover{
+      background:rgba(157,107,255,0.10);
+      border-color:rgba(157,107,255,0.22);
+      box-shadow:0 0 18px rgba(157,107,255,0.18);
+    }
+    .mobile-divider{height:1px;background:rgba(0,0,0,0.08);margin:.6rem 0 1rem;}
+    @media(max-width:768px){
+      .nav-links-desktop{display:none;}
+      .nav-cta-desktop{display:none;}
+      .mobile-menu-button{display:flex;}
+      .header-inner{justify-content:space-between;}
+      .nav-left{width:auto;flex-wrap:nowrap;}
+      .nav-right{gap:.5rem;}
+      .price-pill{justify-content:center;}
+    }
+    @media(min-width:769px){.mobile-drawer{display:none!important;}}
+    .mobile-drawer.open{display:flex;}
   </style>
 </head>
-<body>
 
-  <!-- grain -->
+<body>
   <div class="grain-overlay"></div>
 
-  <!-- HEADER (child-page version) -->
+  <!-- HEADER -->
   <header class="site-header">
   <div class="header-inner">
-
-    <!-- LEFT SIDE NAV -->
     <nav class="nav-left">
-      <!-- desktop nav groups -->
       <div class="nav-links-group nav-links-desktop">
-        <a class="nav-link" href="/#top">Home</a>
-        <a class="nav-link" href="/#phase1">Services</a>
-        <a class="nav-link" href="/#about">About</a>
-        <a class="nav-link" href="/#faq">FAQ</a>
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="index.html#difference">Services</a>
+        <a class="nav-link" href="index.html#faq">FAQ</a>
       </div>
 
       <div class="nav-links-group nav-links-desktop">
-        <a class="nav-link" href="/growthplan.html">Free Growth Plan</a>
-        <a class="nav-link" href="/audit.html">Book Call</a>
-        <a class="nav-link" href="/pricing.html">Pricing</a>
-        <a class="nav-link" href="/contact.html">Contact</a>
+        <button class="nav-link" type="button" onclick="openGrowthPlan()">Free Growth Plan</button>
+        <a class="nav-link" href="audit.html">Book Call</a>
+        <a class="nav-link" href="pricing.html">Pricing</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+        <a class="nav-link" href="policies.html">Policies</a>
       </div>
 
-      <!-- mobile menu button -->
       <button class="mobile-menu-button" aria-label="Menu" onclick="toggleMobileMenu()">
         <span class="burger-line"></span>
         <span class="burger-line"></span>
@@ -764,215 +700,295 @@
       </button>
     </nav>
 
-    <!-- RIGHT SIDE BRAND + CTA -->
     <div class="nav-right">
       <div class="brand-mark">
         <span class="brand-dot"></span>
         <span>Yahme&nbsp;Media</span>
       </div>
-
-      <a class="nav-cta nav-cta-desktop" href="/audit">
-        Free Call
-      </a>
+      <a class="nav-cta nav-cta-desktop" href="audit.html">Free Call</a>
     </div>
   </div>
 
-  <!-- MOBILE DROPDOWN NAV -->
   <div class="mobile-drawer" id="mobileDrawer">
-    <a class="mobile-drawer-link" href="/#top">Home</a>
-    <a class="mobile-drawer-link" href="/#phase1">Services</a>
-    <a class="mobile-drawer-link" href="/#phase2">Growth Package</a>
-    <a class="mobile-drawer-link" href="/#about">About</a>
-    <a class="mobile-drawer-link" href="/#faq">FAQ</a>
+    <a class="mobile-drawer-link" href="index.html">Home</a>
+    <a class="mobile-drawer-link" href="index.html#difference">Services</a>
+    <a class="mobile-drawer-link" href="index.html#faq">FAQ</a>
 
     <div class="mobile-divider"></div>
 
-    <a class="mobile-drawer-link" href="/audit">Book a Call</a>
-    <a class="mobile-drawer-link" href="/pricing">Pricing</a>
-    <a class="mobile-drawer-link" href="/contact">Contact</a>
+    <button class="mobile-drawer-link" type="button" onclick="openGrowthPlan(); toggleMobileMenu(true);">Free Growth Plan</button>
+
+    <a class="mobile-drawer-link" href="audit.html">Book a Call</a>
+    <a class="mobile-drawer-link" href="pricing.html">Pricing</a>
+    <a class="mobile-drawer-link" href="contact.html">Contact</a>
+    <a class="mobile-drawer-link" href="policies.html">Policies</a>
   </div>
 </header>
 
-  <!-- PAGE CONTENT -->
+
+      <div class="nav-right">
+        <div class="brand-mark">
+          <span class="brand-dot"></span>
+          <span>Yahme&nbsp;Media</span>
+        </div>
+        <a class="nav-cta nav-cta-desktop" href="/audit">Free Call</a>
+      </div>
+    </div>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a class="mobile-drawer-link" href="/#top">Home</a>
+      <a class="mobile-drawer-link" href="/#difference">Services</a>
+      <a class="mobile-drawer-link" href="/#faq">FAQ</a>
+
+      <div class="mobile-divider"></div>
+
+      <a class="mobile-drawer-link" href="/audit">Book a Call</a>
+      <a class="mobile-drawer-link" href="/pricing">Pricing</a>
+      <a class="mobile-drawer-link" href="/contact">Contact</a>
+    </div>
+  </header>
+
   <main class="offset-top">
+    <section class="page-wrap" id="top">
+      <div class="page-inner">
 
-    <!-- Pricing Hero / Intro -->
-    <section class="pricing-hero">
-      <div class="pricing-bg-blob"></div>
+        <!-- HOW TO CHOOSE (NOT BOXED) -->
+        <section class="intro">
+          <div class="label-tag">
+            <span class="label-dot"></span>
+            <span>How to choose</span>
+          </div>
 
-      <div class="pricing-inner">
-        <div class="pricing-eyebrow label-tag">
+          <h2 class="section-title">Scroll down. Pick the phase that fits.</h2>
+
+          <p style="font-size:.98rem;line-height:1.75;color:#2f2f2f;max-width:860px;">
+            We don’t sell random marketing. We run a two-phase model:
+            <strong style="color:#111;font-weight:600;"> validate first</strong>, then
+            <strong style="color:#111;font-weight:600;">scale what’s already proven</strong>.
+          </p>
+
+          <div class="jump-row">
+            <a class="jump-pill" href="#phase1"><span class="dot"></span> Phase 1 — Trial</a>
+            <a class="jump-pill" href="#phase2"><span class="dot"></span> Phase 2 — Scale</a>
+            <a class="jump-pill" href="#custom"><span class="dot"></span> Custom — Advisory</a>
+          </div>
+        </section>
+
+        <!-- PHASE 1 (RED BOX) -->
+        <section class="phase-box" id="phase1">
+          <div class="phase-content">
+            <div class="phase-kicker"><span class="dot"></span><span>PHASE 1 — FREE TRIAL</span></div>
+
+            <div class="phase-top">
+              <div>
+                <h2 class="phase-title">Validation Sprint</h2>
+                <p class="phase-sub">30-Day Trial to find out what actually converts before you spend serious money.</p>
+              </div>
+
+              <div class="price-pill" aria-label="Phase 1 pricing">
+                <strike>£499 + 10% PI</strike>
+                <span>FREE — Trial Phase</span>
+              </div>
+            </div>
+
+            <div class="who-block">
+              <div class="mini-heading">Who is this phase for?</div>
+              <ul class="clean">
+                <li>For brands who need clarity before spending real money.</li>
+                <li>Low spend. Quick feedback. You get answers.</li>
+              </ul>
+            </div>
+
+            <div class="mini-grid">
+              <div class="mini-card">
+                <h4>What is this phase for?</h4>
+                <ul class="clean">
+                  <li>Find what people actually click</li>
+                  <li>See if ads can convert for your brand</li>
+                  <li>Decide if scaling makes sense</li>
+                </ul>
+              </div>
+
+              <div class="mini-card">
+                <h4>Core focus</h4>
+                <ul class="clean">
+                  <li>Paid Ads (Meta / TikTok)</li>
+                </ul>
+              </div>
+
+              <div class="mini-card">
+                <h4>What’s included</h4>
+                <ul class="clean">
+                  <li>Full ad setup &amp; launch</li>
+                  <li>Creative direction</li>
+                  <li>Offer &amp; funnel review</li>
+                  <li>Weekly performance dashboard</li>
+                  <li>Clear scale-or-kill verdict</li>
+                </ul>
+              </div>
+            </div>
+
+            <a class="mini-cta" href="audit.html">Start Free Trial →</a>
+
+            <p class="phase-sub" style="max-width:920px;">
+              <strong style="color:#111;">End of Phase 1:</strong>
+              If ads work and you’re happy, we move to Phase 2. If not, you walk away with clarity.
+            </p>
+          </div>
+        </section>
+
+        <!-- PHASE 2 (RED BOX) -->
+        <section class="phase-box" id="phase2">
+          <div class="phase-content">
+            <div class="phase-kicker"><span class="dot"></span><span>PHASE 2 — SCALE</span></div>
+
+            <div class="phase-top">
+              <div>
+                <h2 class="phase-title">Growth Engine</h2>
+                <p class="phase-sub">Full ads management for brands ready to increase spend and push consistent growth.</p>
+              </div>
+
+              <div class="price-pill" aria-label="Phase 2 pricing">
+                <strike>£1500 / mo</strike>
+                <span>£750 / mo</span>
+                <span class="sale-tag">50% OFF!</span>
+              </div>
+            </div>
+
+            <div class="who-block">
+              <div class="mini-heading">Who is this phase for?</div>
+              <ul class="clean">
+                <li>For brands looking to scale.</li>
+                <li>More spend. Push winners. More sales.</li>
+              </ul>
+            </div>
+
+            <div class="mini-grid">
+              <div class="mini-card">
+                <h4>Core focus</h4>
+                <ul class="clean">
+                  <li>Paid Ads (Meta / TikTok)</li>
+                </ul>
+              </div>
+
+              <div class="mini-card">
+                <h4>What changes in Phase 2</h4>
+                <ul class="clean">
+                  <li>Higher ad spend</li>
+                  <li>Faster creative testing</li>
+                  <li>Ongoing optimisation</li>
+                  <li>Predictive AI System (Meta’s “Andrometa”)</li>
+                </ul>
+              </div>
+
+              <div class="mini-card">
+                <h4>What’s included</h4>
+                <ul class="clean">
+                  <li>Paid traffic expansion</li>
+                  <li>Creative pipeline &amp; ad iteration</li>
+                  <li>Funnel optimisation</li>
+                  <li>Cameraman for hire</li>
+                  <li>Model for hire</li>
+                  <li>Retargeting via ads</li>
+                  <li>Weekly insights + strategy calls</li>
+                </ul>
+              </div>
+            </div>
+
+            <a class="mini-cta" href="audit.html">Scale With Us →</a>
+
+            <p class="phase-sub" style="max-width:920px;">
+              <strong style="color:#111;">Important:</strong>
+              Phase 2 is only offered after Phase 1 proves traction.
+            </p>
+          </div>
+        </section>
+
+        <!-- CUSTOM (RED BOX) -->
+        <section class="phase-box" id="custom">
+          <div class="phase-content">
+            <div class="phase-kicker"><span class="dot"></span><span>CUSTOM — NON-ADS WORK</span></div>
+
+            <div class="phase-top">
+              <div>
+                <h2 class="phase-title">Bespoke Advisory</h2>
+                <p class="phase-sub">For bottlenecks outside ads — fixed with discovery first, then a custom scope.</p>
+              </div>
+
+              <div class="price-pill" aria-label="Custom pricing">
+                <span>Scope-based</span>
+              </div>
+            </div>
+
+            <div class="who-block">
+              <div class="mini-heading">Who is this for?</div>
+              <ul class="clean">
+                <li>For brands with specific bottlenecks outside ads.</li>
+                <li>No templates, no bundles — just what you actually need.</li>
+              </ul>
+            </div>
+
+            <div class="mini-grid">
+              <div class="mini-card">
+                <h4>How it works</h4>
+                <ul class="clean">
+                  <li>Discovery first</li>
+                  <li>Custom scope only</li>
+                  <li>No templates, no bundles</li>
+                </ul>
+              </div>
+
+              <div class="mini-card">
+                <h4>Common requests</h4>
+                <ul class="clean">
+                  <li>Website / UX rebuilds</li>
+                  <li>SEO &amp; Google strategy</li>
+                  <li>Cold + warm retargeting systems</li>
+                </ul>
+              </div>
+
+              <div class="mini-card">
+                <h4>Rule</h4>
+                <ul class="clean">
+                  <li>Ads come first. Always.</li>
+                  <li>If acquisition isn’t working, we fix the leaks.</li>
+                  <li>Then we scale.</li>
+                </ul>
+              </div>
+            </div>
+
+            <a class="mini-cta" href="audit.html">Book Strategy Call →</a>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- STILL NOT SURE (NOT BOXED / at bottom) -->
+    <section class="help-wrap" id="help">
+      <div class="help-card">
+        <div class="label-tag" style="box-shadow:none;">
           <span class="label-dot"></span>
-          <span>Pick a plan</span>
+          <span>Still not sure?</span>
         </div>
 
-        <div class="pricing-title">
-          Choose how you want to scale.
-        </div>
-
-        <div class="pricing-sub">
-          Every brand is at a different stage. We’ll never force you into “the big package” if you’re not ready.
-          Book a pricing call for the plan you’re leaning toward — we’ll confirm fit, clarify expectations,
-          and walk you through next steps.
-        </div>
+        <h3>Still not sure?</h3>
+        <p>Get a free audit, and we’ll figure out the right fit for you.</p>
+        <p>You schedule a time, and we’ll call you right back.</p>
+        <a class="red-box-btn" href="audit.html">Book Appointment</a>
       </div>
     </section>
 
-    <!-- Pricing Grid -->
-    <section class="pricing-grid-wrap">
-      <div class="pricing-grid-inner">
-
-        <div class="plan-grid">
-
-          <!-- PLAN 1: Validation / Phase 1 -->
-          <div class="plan-card">
-            <div class="plan-eyebrow">
-              <span>Phase 1</span>
-              <span>Validation Sprint</span>
-            </div>
-
-            <div class="plan-title">
-              30 Day Validation Program
-            </div>
-
-            <div class="plan-for">
-              For brands who need clarity before scale.
-              We find your winning angle, audience, and creative.
-            </div>
-
-            <div>
-              <div class="plan-price">£499 + 10% Performance Incentive</div>
-              <div class="plan-price-note">
-                Low upfront. You only pay more when we make you money.
-              </div>
-            </div>
-
-            <ul class="plan-list">
-              <li>Full ad setup & launch (Meta / TikTok)</li>
-              <li>Creative Strategy Deck (Done-For-You)</li>
-              <li>Weekly performance dashboard & Loom breakdowns</li>
-              <li>Offer and funnel review</li>
-              <li>Action plan for scaling</li>
-            </ul>
-
-            <a class="plan-cta" href="audit.html">
-              Book Pricing Call →
-            </a>
-
-            <div class="plan-price-note" style="font-size:0.7rem; line-height:1.4;">
-              This call is to confirm fit, align expectations, and make sure we’re solving the right problem before we start.
-            </div>
-          </div>
-
-          <!-- PLAN 2: Growth / Phase 2 -->
-          <div class="plan-card">
-            <div class="plan-eyebrow">
-              <span>Phase 2</span>
-              <span>Growth Engine</span>
-            </div>
-
-            <div class="plan-title">
-              Full Growth Package
-            </div>
-
-            <div class="plan-for">
-              For brands ready to scale spend, tighten CAC, and push predictable month-over-month growth. (10-15k/mo+)
-            </div>
-
-            <div>
-              <div class="plan-price">£1500 / month + 15% Performance Incentive</div>
-              <div class="plan-price-note">
-                You scale. We get paid when you win. (15% PI is taken off uplift / what we make you - not gross revenue.)
-              </div>
-            </div>
-
-            <ul class="plan-list">
-              <li>Paid Traffic Expansion (Meta, TikTok, optional Google)</li>
-              <li>Creative pipeline & ongoing ad iteration</li>
-              <li>Funnel & landing page optimisation</li>
-              <li>Retention systems (email / SMS retargeting)</li>
-              <li>Weekly insights dashboard & bi-weekly strategy calls</li>
-              <li>Dedicated growth manager & private line</li>
-            </ul>
-
-            <a class="plan-cta" href="audit.html">
-              Book Pricing Call →
-            </a>
-
-            <div class="disclaimer-block" style="margin-top:0.75rem;">
-              <strong>Important:</strong><br/><br/>
-              We recommend starting with Phase 1 (30 Day Validation) before entering this package.
-              That sprint is designed to collect data, identify your profitable angles, and remove guesswork —
-              so when we enter full scaling, we’re not burning budget figuring you out.<br/><br/>
-
-              Phase 1 lets us:
-              <br/>– Prove creative and audience fit fast
-              <br/>– Eliminate wasted ad spend early
-              <br/>– Build transparent working rhythm together
-              <br/><br/>
-
-              If you want to enter Phase 2 immediately, we can — but expect some initial spend to go toward testing and training our predictive system.
-            </div>
-          </div>
-
-          <!-- PLAN 3: Bespoke / Custom -->
-          <div class="plan-card">
-            <div class="plan-eyebrow">
-              <span>Custom</span>
-              <span>High-touch</span>
-            </div>
-
-            <div class="plan-title">
-              Bespoke Build & Advisory
-            </div>
-
-            <div class="plan-for">
-              For brands doing serious volume or building for investment / wholesale / exit.
-              We design around your exact bottleneck.
-            </div>
-
-            <div>
-              <div class="plan-price">Fully Custom</div>
-              <div class="plan-price-note">
-                Structured after discovery. This is not “a package,” this is architecture.
-              </div>
-            </div>
-
-            <ul class="plan-list">
-              <li>Deep audit on offer, AOV, LTV, margins</li>
-              <li>Creative direction + shoot guidance + hooks</li>
-              <li>Full-funnel rebuild if needed</li>
-              <li>Paid media scaling paths by channel</li>
-              <li>Executive-level reporting for stakeholders/investors</li>
-            </ul>
-
-            <a class="plan-cta" href="audit.html">
-              Book Strategy Call →
-            </a>
-
-            <div class="plan-price-note" style="font-size:0.7rem; line-height:1.4;">
-              This call is not sales pressure.
-              We’ll map what’s actually blocking scale and tell you what working with us would look like.
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Final CTA (reuse global style) -->
+    <!-- FINAL CTA -->
     <section class="final-cta">
-      <div class="final-headline">
-        Not sure which tier you fit?
-      </div>
+      <div class="final-headline">If ads work, everything moves.</div>
       <div class="final-sub">
-        That’s normal. Tell us your current monthly revenue, ad spend, and where you feel stuck. We’ll tell you which path makes sense — or if you shouldn’t spend money on ads yet.
+        If they don’t, nothing else matters. That’s how we operate.
+        Book a call and we’ll tell you what’s realistic for your stage — fast.
       </div>
-      <a class="final-btn" href="audit.html">
-        Book My Pricing Call
-      </a>
+      <a class="final-btn" href="audit.html">Book Your Free Strategy Call</a>
       <div class="final-footnote">
-        Yahme Media — Fashion Growth Partner
+        Yahme Media — Paid Growth Partner for Fashion Brands.
       </div>
     </section>
 
@@ -984,13 +1000,17 @@
       <div class="footer-top">
         <div class="footer-brand">
           <h4>Yahme Media</h4>
-          <p>London, UK</p>
+          <p>Northampton, UK</p>
           <p>contact@yahmemedia.net</p>
           <p>+44 7889 697726</p>
+          <p style="margin-top:.75rem;color:#666;font-size:.82rem;line-height:1.6">
+            Paid Growth Partner for Fashion Brands.<br/>
+            If acquisition doesn’t work, nothing else matters.
+          </p>
         </div>
 
         <div class="footer-links">
-          <a href="contact.html">Contact & Support</a>
+          <a href="contact.html">Contact &amp; Support</a>
           <a href="policies.html#privacy">Privacy Policy</a>
           <a href="policies.html#terms">Terms of Service</a>
           <a href="policies.html#refunds">Refund Policy</a>
@@ -999,21 +1019,82 @@
       </div>
 
       <div class="footer-bottom">
-        <p>© Yahme Media. All rights reserved.</p>
+        © Yahme Media. All rights reserved.
       </div>
     </div>
   </section>
 
-  <!-- grain overlay duplicate on top layer -->
-  <div class="grain-overlay"></div>
+  <script>
+    function toggleMobileMenu(){
+      const drawer=document.getElementById('mobileDrawer');
+      if(!drawer) return;
+      drawer.classList.toggle('open');
+    }
+  </script>
+
+<div class="grain-overlay"></div>
+
+<div class="gp-dim" id="gpDim" onclick="closeGrowthPlan()"></div>
+
+<div class="gp-modal" id="gpModal" role="dialog" aria-modal="true">
+  <div class="gp-inner">
+  <div class="gp-toprow">
+    <div>
+      <div class="label-tag" style="margin-bottom:.75rem;">
+        <span class="label-dot"></span>
+        <span>Free Growth Plan</span>
+      </div>
+      <div class="gp-title">Get the exact 7-day traffic &amp; conversion play we use to un-stick fashion brands.</div>
+    </div>
+
+    <button class="gp-close" type="button" aria-label="Close" onclick="closeGrowthPlan()">✕</button>
+  </div>
+
+  <div class="gp-copy">
+    Instant download. No email needed.
+  </div>
+
+  <div class="gp-actions" style="justify-content:flex-start;">
+    <button
+      class="gp-primary harsh-red-btn"
+      type="button"
+      onclick="window.location.href='assets/pdfs/yahme-growth-plan.pdf'">
+      Send it
+    </button>
+  </div>
+
+  <div class="gp-footnote">
+    (PDF opens/downloads depending on browser settings.)
+  </div>
+</div>
+
+</div>
 
 <script>
-  function toggleMobileMenu() {
-    const drawer = document.getElementById('mobileDrawer');
-    if (!drawer) return;
-    drawer.classList.toggle('open');
-  }
+function openGrowthPlan(){
+  const dim=document.getElementById('gpDim');
+  const modal=document.getElementById('gpModal');
+  if(!dim||!modal)return;
+  dim.classList.add('open');
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeGrowthPlan(){
+  const dim=document.getElementById('gpDim');
+  const modal=document.getElementById('gpModal');
+  if(!dim||!modal)return;
+  dim.classList.remove('open');
+  modal.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeGrowthPlan();
+});
 </script>
+
+<script src="assets/js/global.js"></script>
 
 </body>
 </html>
